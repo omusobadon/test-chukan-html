@@ -1,0 +1,49 @@
+---
+import "bootstrap/dist/css/bootstrap.min.css";
+const { homel, docsl, membersl } = Astro.props;
+---
+
+<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-light bg-opacity-50 fixed-top"
+>
+  <div class="container">
+    <a class="navbar-brand" href={homel}></a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav gap-4">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href={homel}>
+            ホーム
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href={docsl}> Docs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href={membersl}>
+            メンバー詳細
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<style>
+  .navbar-brand {
+    background: url("/オムそば丼キャラ切り抜き.png") no-repeat left center;
+    background-size: contain;
+    height: 50px;
+    width: 100px;
+  }
+</style>

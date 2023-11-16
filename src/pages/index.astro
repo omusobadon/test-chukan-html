@@ -1,0 +1,54 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+
+const title = "オムそば丼オフィシャルサイト";
+const description = "オムそば丼のオフィシャルサイトです。";
+---
+
+<html lang="en">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <header>
+    <Header homel="./" docsl="./docs.html" membersl="./members.html" />
+  </header>
+  <body class="text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card">
+            <img
+              id="responsive-image"
+              src="./オムそば丼キャラ.png"
+              alt="omusoba"
+              class="img-fluid img-thumbnail"
+            />
+            <div class="card-body">
+              <h5 class="card-title">オムそば丼マスコットキャラクター</h5>
+              <p class="card-text"></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">チーム：オムそば丼</h5>
+              <p class="card-title">作っているもの：オムそばどん予約システム</p>
+              <p class="card-title">概要</p>
+              <p class="card-body">
+                予約システムの基盤となるものがGithubやGitlabなどのリポジトリサイトにオープンソースなどに載っていないかつ出来合い品を売っているが基盤を売っていないところが多かったため、誰でも拡張できる予約システム基盤を作るのが目的です
+              </p>
+              <a href="./Docs.html" class="btn btn-primary">詳細を見る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <style>
+    body {
+      padding-top: 5rem;
+    }
+  </style>
+</html>
