@@ -6,96 +6,80 @@ import FormattedDate from "../components/FormattedDate.astro";
 import LeftSidebar from "../components/LeftSidebar.astro";
 
 type Props = CollectionEntry<"blog">["data"];
-
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} />
-    <style>
-      body {
-      padding-top: 5rem;
-    }
-      .hero-image {
-        width: 100%;
-      }
-      .hero-image img {
-        display: block;
-        margin: 0 auto;
-        border-radius: 12px;
-        box-shadow: var(--box-shadow);
-      }
-      .prose {
-        width: 720px;
-        max-width: calc(100% - 2em);
-        margin: auto;
-        padding: 1em;
-        color: rgb(var(--gray-dark));
-      }
-      .title {
-        margin-bottom: 1em;
-        padding: 1em 0;
-        text-align: center;
-        line-height: 1;
-      }
-      .title h1 {
-        margin: 0 0 0.5em 0;
-      }
-      .date {
-        margin-bottom: 0.5em;
-        color: rgb(var(--gray));
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-      .last-updated-on {
-        font-style: italic;
-      }
-      .left-sidebar {
-        position: sticky;
-		top: 50px;
-        height: calc(100vh - 160px);
-        overflow-y: scroll;
-      }
-    </style>
   </head>
-  <header>
-    <Header homel="./index.html" docsl="./docs.html" membersl="./members.html" />
+  <header class="">
+    <Header homel="/index.html" docsl="./docs.html" membersl="./members.html" />
   </header>
   <body>
-    <div class="d-flex justify-content-between">
-      <div class="row">
-        <div class="col-md-3 left-sidebar">
+    <main class="">
+      <div class="flex flex-row">
+        <aside
+          class="flex-none bg-gray-100 overflow-x-visible"
+          style="width: 20%;"
+        >
           <LeftSidebar />
-        </div>
-        <article class="col-md-9">
-          <div class="hero-image">
-            {
-              heroImage && (
-                <img width={1020} height={510} src={heroImage} alt="" />
-              )
-            }
-          </div>
-          <div class="prose">
-            <div class="title">
-              <div class="date">
-                <FormattedDate date={pubDate} />
-                {
-                  updatedDate && (
-                    <div class="last-updated-on">
-                      Last updated on <FormattedDate date={updatedDate} />
-                    </div>
-                  )
-                }
-              </div>
-              <h1>{title}</h1>
-              <hr />
+        </aside>
+        <div>
+          <article class="flex-grow overflow-auto" style="height: 93vh;">
+            <!-- Content here... -->
+            <div class="p-4">
+              {
+                heroImage && (
+                  <img width={1020} height={510} src={heroImage} alt="" />
+                )
+              }
             </div>
-            <slot />
-          </div>
-        </article>
+            <div class="prose">
+              <div class="title">
+                <div class="date">
+                  <FormattedDate date={pubDate} />
+                  {
+                    updatedDate && (
+                      <div class="last-updated-on">
+                        Last updated on <FormattedDate date={updatedDate} />
+                      </div>
+                    )
+                  }
+                </div>
+                <h1>{title}</h1>
+                <hr />
+              </div>
+              <slot />
+            </div>
+          </article>
+        </div>
+        <aside class="flex-none bg-gray-100" style="width: 20%;">
+          <ul id="toc"></ul>
+        </aside>
       </div>
-    </div>
+    </main>
   </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Find h2 elements within the content area
+      const headings = document.querySelectorAll("article h2");
+      const toc = Array.from(headings).map((h2) => ({
+        title: h2.innerText,
+        id: h2.id,
+      }));
+      const tocElement = document.getElementById("toc");
+
+      if (tocElement) {
+        toc.forEach((item) => {
+          const listItem = document.createElement("li");
+          const link = document.createElement("a");
+          link.href = `#${item.id}`;
+          link.textContent = item.title;
+          listItem.appendChild(link);
+          tocElement.appendChild(listItem);
+        });
+      }
+    });
+  </script>
 </html>

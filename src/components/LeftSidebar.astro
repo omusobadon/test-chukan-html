@@ -1,34 +1,20 @@
 ---
-import "bootstrap/dist/css/bootstrap.min.css";
 import { type CollectionEntry, getCollection, getEntry } from "astro:content";
 import FormattedDate from "./FormattedDate.astro";
 
-const posts = await getCollection("docs");
-const posts1 = await getCollection("blog");
+const post = {
+  blog: await getCollection('blog'),
+  docs: await getCollection('docs'),
+};
 ---
 
 <div class="mt-5">
   <section>
     <ul>
       {
-        posts.map((post) => (
+        post.docs.map((post) => (
           <a href={`/docs/${post.slug}/index.html`}>
             <h4 class="title">{post.data.title}</h4>
-            <p class="date">
-              <FormattedDate date={post.data.pubDate} />
-            </p>
-          </a>
-        ))
-      }
-    </ul>
-    <ul>
-      {
-        posts1.map((post) => (
-          <a href={`/blog/${post.slug}/index.html`}>
-            <h4 class="title">{post.data.title}</h4>
-            <p class="date">
-              <FormattedDate date={post.data.pubDate} />
-            </p>
           </a>
         ))
       }

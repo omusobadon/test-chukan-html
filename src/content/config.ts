@@ -12,8 +12,6 @@ const blog = defineCollection({
     heroImage: z.string().optional(),
   }),
 });
-// docs folder is the root of the collection
-// 1. ユーティリティを`astro:content`からインポート
 
 // 2. 各コレクションに`type`と`schema`を定義
 const Guide = defineCollection({
@@ -24,6 +22,8 @@ const Guide = defineCollection({
     // Transform string to Date object
   }),
 });
+
+
 
 const Reference = defineCollection({
   type: "content",
@@ -39,5 +39,5 @@ const Reference = defineCollection({
 export const collections = {
   blog: blog,
   docs: Guide,
-  reference: Reference,
+  
 };
