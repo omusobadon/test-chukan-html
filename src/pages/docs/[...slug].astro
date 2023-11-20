@@ -1,20 +1,33 @@
 ---
 import { type CollectionEntry, getCollection, getEntry } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import DefaultLayout from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
-	const allBlogPosts = await getCollection('docs');
-	return allBlogPosts.map((post) => ({
-		params: { slug: post.slug },
-		props: post,
-	}));
-}
-type Props = CollectionEntry<'docs'>;
+  const guides = await getCollection('guides');
+  const references = await getCollection('references');
 
-const post = Astro.props;
-const { Content } = await post.render();
+  const guidePaths = guides?.map((guide) => ({
+    params: { slug: guide.slug },
+    props: { ...guide, collection: 'guides' },
+  })) || [];
+
+  const referencePaths = references?.map((reference) => ({
+    params: { slug: reference.slug },
+    props: { ...reference, collection: 'references' },
+  })) || [];
+
+  const paths = [...guidePaths, ...referencePaths];
+  return paths;
+}
+
+type Props = CollectionEntry<'guides'> | CollectionEntry<'references'>;
+
+const pageProps = Astro.props;
+const { collection, slug } = pageProps;
+const entry = await getEntry(collection, slug);
+const { Content } = await entry.render();
 ---
 
-<BlogPost {...post.data}>
-	<Content />
-</BlogPost>
+<DefaultLayout {...entry.data}>
+  <Content />
+</DefaultLayout>

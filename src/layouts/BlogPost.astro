@@ -14,24 +14,24 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
     <BaseHead title={title} description={description} />
   </head>
   <header class="">
-    <Header homel="/index.html" docsl="./docs.html" membersl="./members.html" />
+    <Header homel="/index.html" docsl="../../" membersl="./members.html" />
   </header>
   <body>
     <main class="">
       <div class="flex flex-row">
         <aside
-          class="flex-none bg-gray-100 overflow-x-visible"
+          class="flex-none overflow-x-visible"
           style="width: 20%;"
         >
           <LeftSidebar />
         </aside>
         <div>
-          <article class="flex-grow overflow-auto" style="height: 93vh;">
+          <article class="flex-grow overflow-auto" style="height: 90vh">
             <!-- Content here... -->
             <div class="p-4">
               {
                 heroImage && (
-                  <img width={1020} height={510} src={heroImage} alt="" />
+                  <img class="md:w10" src={heroImage} alt="" />
                 )
               }
             </div>
@@ -54,7 +54,8 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
             </div>
           </article>
         </div>
-        <aside class="flex-none bg-gray-100" style="width: 20%;">
+        <aside class="flex-none m-10" style="width: 20%;">
+          目次
           <ul id="toc"></ul>
         </aside>
       </div>

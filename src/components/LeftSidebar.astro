@@ -1,23 +1,36 @@
 ---
-import { type CollectionEntry, getCollection, getEntry } from "astro:content";
-import FormattedDate from "./FormattedDate.astro";
+import { type Collection, getCollection } from 'astro:content';
 
-const post = {
-  blog: await getCollection('blog'),
-  docs: await getCollection('docs'),
+// コレクションのエントリ型を定義します。
+type GuideEntry = {
+  slug: string;
+  data: {
+    title: string;
+    // 他のフィールド...
+  };
 };
+const guidesCollection = (await getCollection('guides')) as Collection<GuideEntry>;
+const referencesCollection = (await getCollection('references')) as Collection<GuideEntry>;
+
 ---
 
 <div class="mt-5">
   <section>
-    <ul>
-      {
-        post.docs.map((post) => (
-          <a href={`/docs/${post.slug}/index.html`}>
-            <h4 class="title">{post.data.title}</h4>
-          </a>
-        ))
-      }
-    </ul>
+    {guidesCollection && <div>
+      <h2>Guides</h2>
+      <ul>
+        {guidesCollection.items.map((guide) => (
+          <li><a href={`/docs/guides/${guide.slug}/`}>{guide.data.title}</a></li>
+        ))}
+      </ul>
+    </div>}
+    {referencesCollection && <div>
+      <h2>References</h2>
+      <ul>
+        {referencesCollection.items.map((reference) => (
+          <li><a href={`/docs/references/${reference.slug}/`}>{reference.data.title}</a></li>
+        ))}
+      </ul>
+    </div>}
   </section>
 </div>
