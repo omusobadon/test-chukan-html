@@ -4,7 +4,7 @@ import BlogLayout from "../../layouts/BlogPost.astro";
 import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection("guides")
+  const blogEntries = await getCollection("references")
   return blogEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
